@@ -12,7 +12,8 @@ other tools.)
 import os
 import re
 import sys
-from collections import defaultdict
+from collections import defaultdict,Container
+
 # Requires colorama to be able to colour, but won't fall over if it's not there.
 # - 'apt install python-colorama' or 'pip install colorama'
 try:
@@ -37,6 +38,18 @@ except ImportError:
     # Quietly fall back to uncoloured behaviour
     colour = defaultdict(lambda:'')
     have_colour = False
+
+if os.getenv('MUDDLE_COLOURISE') == 'html':
+    # Alternate mode for HTML output.. wrap text up in CSS classes
+    class htmlcolour(Container):
+        def __getitem__(self, key):
+            if key=='reset':
+                return '</span>'
+            return '<span class="%s">'%key
+        def __contains__(self):
+            return True
+    colour = htmlcolour()
+    have_colour = True
 
 def wrap_colour(string, col):
     ''' Colourises a string '''
@@ -111,7 +124,7 @@ def colourize(msg):
     sw = os.getenv('MUDDLE_COLOURISE', 'auto')
     if sw=='auto':
         sw = '1' if sys.stdout.isatty() else '0'
-    if not (sw.lower() in ('yes','y','true','1')):
+    if not (sw.lower() in ('yes','y','true','1','html')):
         # we're not enabled, do nothing
         return msg
     output = []
