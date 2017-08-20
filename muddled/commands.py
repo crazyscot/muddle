@@ -42,6 +42,7 @@ import muddled.utils as utils
 import muddled.version_control as version_control
 import muddled.docreport
 
+from muddled.colourize import colourize
 from muddled.db import Database, InstructionFile
 from muddled.depend import Label, label_list_to_string
 from muddled.utils import GiveUp, MuddleBug, Unsupported, \
@@ -848,7 +849,7 @@ def build_labels(builder, to_build):
         for lbl in to_build:
             builder.build_label(lbl)
     except GiveUp,e:
-        raise GiveUp("Can't build %s - %s"%(str(lbl), e))
+        raise GiveUp("Can't build %s - %s"%(str(lbl), colourize(e)))
 
 # =============================================================================
 # Actual commands
