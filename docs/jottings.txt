@@ -540,3 +540,21 @@ dictionaries and so on into the main domain. We can then discard the old
 Builder, since they're no longer of any interest.
 
 .. vim: set filetype=rst tabstop=8 softtabstop=2 shiftwidth=2 expandtab:
+
+Colourised output
+=================
+
+Since gcc tends to output in colour these days, wouldn't it would be nice
+if you could get the same colour coding from muddle when things go wrong?
+Well now you can, and it's enabled by default. To make it work, all you
+need to do is ``apt install python-colorama`` or ``pip install colorama``.
+
+Colourisation is controlled by the ``MUDDLE_COLOURISE`` environment
+variable. The known values are:
+
+* ``auto`` (default): Detect whether muddle is running in a tty and colourise
+if so.
+* ``yes``: Always colourise
+* ``no``: Never colourise
+* ``html``: Always colourise for HTML. This is for use with Continuous
+Integration systems.
