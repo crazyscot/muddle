@@ -232,7 +232,7 @@ def process(args):
 		raise GiveUp("None of the given goals %s is a target"%(map(str, goals)))
 
 	for g in full_goals:
-		Node(g, isGoal=True, extras="shape=parallelogram")
+		Node(g, isGoal=True, extras="shape=parallelogram, fillcolor=gold")
 		# color=green fillcolor=green style=filled...?
 
 	for g in full_goals:
